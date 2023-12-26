@@ -14,6 +14,26 @@ struct employee_t {
 	bool is_manager;
 };
 
+// struct modifiers
+// 	There can be different struct modifiers that can be added in different systems
+// 	that are sometimes added on systems that create optimizatoins under the hood.
+
+__attribute__((__packed__)) struct employee_t2 {
+	int id;
+	char first_name[64];
+	char last_name[64];
+	float income;
+	bool is_manager;
+};
+// This could poentially create a structure that is less than the original 140 bytes
+// 		- 4 bytes from int id.
+// 		- 64 bytes from char first_name.
+// 		- 64 bytes from char last_name.
+// 		- 4 bytes from float income.
+// 		- 4 bytes from bool is_manager.
+// 	In this case it does not do that but it could in some circumstances.
+
+
 // Creating a basic Union
 // 	The union creates a type that creates enough room for the largest variable
 // 	In this case the larget variable is int x (it has a size of 4 bytes),
@@ -48,6 +68,9 @@ int main () {
 	// 41424344 is the full hexadecimal code with 4 bytes (8 hex numbers) like an int.
 	// 4344 is 2 bytes of the hexadecimal value since it is a short (4 hex numbers = 2 bytes).
 	// 44 is 1 byte of the hexadecimal value since it is a char (2 hex numbers = 1 byte).
+
+	printf("Size of employee_t struct %d, size of employee_t2 struct: %d\n",
+			sizeof(struct employee_t), sizeof(struct employee_t2));
 
 	return 0;
 }
